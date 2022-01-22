@@ -36,10 +36,10 @@ This turned my focus to the state variables in the C-program. I ended up printin
 From reading the output bottom up I subtracted the difference in each guess step to reach the next state. From the 2048 output it is seen that we remove half of the contents in both the 'zero false list' and 'one false list' in every step until we reach 1 'zero false' and 11 'one false' in the 11th guess. This was a solved state according to [https://web.mat.bham.ac.uk/D.Osthus/simpleliar2.pdf](https://web.mat.bham.ac.uk/D.Osthus/simpleliar2.pdf) and trivial to solve in the remaining steps.
 
 ## N=4096, M=23, K=3
-With the [thesis output](4096_23_3_thesis_output.txt) at hand I expanded my program with a 'two false list' and 'three false list' to account for the additional lies. A different challenge for this subtask is that the thesis output branches into different paths earlier:
+With the [thesis output](4096_23_3_thesis_output.txt) at hand I expanded my program with a 'two false list' and 'three false list' to account for the additional lies. A different challenge for this subtask is that the thesis output branches into different paths at an earlier stage:
   * [step:10] [tree:00] state[0]: 146 state[1]: 34 state[2]: 9 state[3]: 0
   * [step:10] [tree:01..22] state[0]: 140 state[1]: 44 state[2]: 4 state[3]: 1
 
-From above we see that all solution trees except one share the same state after the 13th guess. Later on there are additonal splits. I tried to choose the tree paths the majority of the solutions were using. To overcome the splitting I bruteforced attempts and added debug messages printing if I occationally ended up in the implemented tree solution. After 21 guesses the responder gave up and I had my final flag! This final solver can be seen in [solve.py](solve.py).
+From above we see that all solution trees except one share the same state after the 13th guess. Later on there are additional splits. I tried to choose the tree paths the majority of the solutions were using. To overcome the splitting I bruteforced attempts and added debug messages printing if I occationally ended up in the implemented tree solution. After 21 guesses the responder gave up and I had my final flag! This final solver can be seen in [solve.py](solve.py).
 
 
