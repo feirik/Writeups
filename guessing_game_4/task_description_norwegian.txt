@@ -1,0 +1,16 @@
+## Ravns gjettelek
+
+Du og din venn Ravn spiller et gjettespill. Ravn tenker på et tall og du prøver å gjette det ved å spørre ja-/nei-spørsmål, men det er en tvist - Ravn kan lyve. Mer formelt, i begynnelsen av spillet, blir dere begge enige om positive heltall N, M, K. Ravn tenker deretter på et heltall mellom 1 og N (inkludert tallet 1 og N). Deretter spør du Ravn en rekke av M spørsmål, som hvert blir besvart 'ja' eller 'nei'. Ravn kan feilaktig besvare opp til K av spørsmålene. Etter å ha stilt alle spørsmålene dine, gjetter du ett enkelt tall. Hvis du gjetter riktig, vinner du, ellers taper du.
+
+For å starte et spill med Ravn, send en POST-request til 'http://guessing-game/start_game' med en JSON-payload '{"N": N, "M": M, "K": K}' Dette starter et spill med de foreslåtte verdiene, og returnerer en spill-ID som en streng. For å stille et spørsmål, send en POST-request til 'http://guessing-game/ask_question' med JSON-payload '{"game_id": game_id, "question": question}'. Her er game_id ID-en til et pågående spill, og question er en liste med heltall. Dette vil returnere '{"answer": True/False}' for å indikere om det hemmelige nummeret er i listen eller ikke. Du kan også sende en POST-request til "https://guessing-game/query" med payload '{"game_id': game_id} for å sjekke status til det pågående spillet. Dette vil returnere en JSON-payload med all data om spillet så langt. Om man sender en feilaktig request, for eksempel fordi game_id er ugyldig, samsvarer med et spill som er over eller du prøver å stille et spørsmål når du ikke har flere spørsmål igjen, så vil en feilmelding returneres.
+
+Når du har funnet tallet Ravn tenker på, send en POST-request til "https://guessing-game/verify_guess" med JSON-payload '{"game_id": game_id, "guess": guess}' for å fullføre spillet. Ravn vil svare med payload '{"correct": True/False, "secret_number": secret_number}', hvor secret_number vil være tallet han tenkte på. Hvis du vinner og du valgte et av spill-parmetere fra listen under med utfordringer, blir Ravn veldig imponert og sender deg en payload som også inneholder nøkkelen "flag" som en bonus.
+
+Her er Ravn sine utfordringer til deg:
+
+  * N=64, M=6, K=0
+  * N=128, M=13, K=1
+  * N=2048, M=15, K=1
+  * N=4096, M=23, K=3
+
+Hint: Ravn er en dårlig taper, så det er en god idé å prøve å finne en strategi som garantert virker, ikke bare trolig virker. Tross alt, ingenting stopper Ravn fra å endre tallet han tenker på underveis i spillet så lenge du ikke kan bevise at han gjorde det...
